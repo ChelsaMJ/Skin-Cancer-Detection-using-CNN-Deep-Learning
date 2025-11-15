@@ -12,12 +12,13 @@ def load_model(path="model.h5"):
     model = tf.keras.models.load_model(path)
     return model
 
-def preprocess_image(image: Image, target_size=(28,28)):
+def preprocess_image(image: Image):
     # convert to RGB, resize, scale to [0,1], expand dims
     image = image.convert("RGB")
-    image = image.resize(target_size)
-    arr = np.array(image) / 255.0
-    arr = np.expand_dims(arr, axis=0).astype(np.float32)
+    image = image.resize((28,28))
+    arr = np.array(image).astype(np.float32) / 255.0
+    # shape must be (1, 28, 28, 3)
+    arr = np.expand_dims(arr, axis=0)
     return arr
 
 # replace with your model's class names in correct order
@@ -64,4 +65,5 @@ if uploaded_file is not None:
         for i, name in enumerate(CLASS_NAMES):
             p = float(probs[i]) if i < len(probs) else 0.0
             st.write(f"- {name}: {p:.3f}")
+
 
