@@ -50,7 +50,7 @@ if uploaded_file is not None:
 
     if st.button("Predict"):
         with st.spinner("Predicting..."):
-            x = preprocess_image(image, target_size=(224,224))
+            x = preprocess_image(image)
             preds = model.predict(x)
             # handle shape: (1, n_classes)
             if preds.ndim == 2:
@@ -65,5 +65,6 @@ if uploaded_file is not None:
         for i, name in enumerate(CLASS_NAMES):
             p = float(probs[i]) if i < len(probs) else 0.0
             st.write(f"- {name}: {p:.3f}")
+
 
 
