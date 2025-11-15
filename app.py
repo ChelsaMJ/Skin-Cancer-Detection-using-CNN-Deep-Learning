@@ -12,7 +12,7 @@ def load_model(path="model.h5"):
     model = tf.keras.models.load_model(path)
     return model
 
-def preprocess_image(image: Image, target_size=(224,224)):
+def preprocess_image(image: Image, target_size=(28,28)):
     # convert to RGB, resize, scale to [0,1], expand dims
     image = image.convert("RGB")
     image = image.resize(target_size)
@@ -64,3 +64,4 @@ if uploaded_file is not None:
         for i, name in enumerate(CLASS_NAMES):
             p = float(probs[i]) if i < len(probs) else 0.0
             st.write(f"- {name}: {p:.3f}")
+
